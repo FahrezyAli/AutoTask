@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E5CA19592DCCB296006A9850 /* InjectionNext in Frameworks */ = {isa = PBXBuildFile; productRef = E5CA19582DCCB296006A9850 /* InjectionNext */; };
+		E5CA195C2DCCB2A9006A9850 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = E5CA195B2DCCB2A9006A9850 /* Inject */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		E5691CB22DCCB0C800AF31EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5CA19592DCCB296006A9850 /* InjectionNext in Frameworks */,
+				E5CA195C2DCCB2A9006A9850 /* Inject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +119,8 @@
 			);
 			name = AutoTask;
 			packageProductDependencies = (
+				E5CA19582DCCB296006A9850 /* InjectionNext */,
+				E5CA195B2DCCB2A9006A9850 /* Inject */,
 			);
 			productName = AutoTask;
 			productReference = E5691CA42DCCB0C700AF31EB /* AutoTask.app */;
@@ -195,6 +204,10 @@
 			);
 			mainGroup = E5691C9B2DCCB0C700AF31EB;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E5CA19572DCCB260006A9850 /* XCRemoteSwiftPackageReference "InjectionNext" */,
+				E5CA195A2DCCB2A9006A9850 /* XCRemoteSwiftPackageReference "Inject" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E5691CA52DCCB0C700AF31EB /* Products */;
 			projectDirPath = "";
@@ -398,6 +411,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PP2K97M73A;
+				EMIT_FRONTEND_COMMAND_LINES = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -410,6 +424,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-Xlinker",
+					"-interposable",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = cloud.rain.AutoTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -426,6 +444,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PP2K97M73A;
+				EMIT_FRONTEND_COMMAND_LINES = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -558,6 +577,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E5CA19572DCCB260006A9850 /* XCRemoteSwiftPackageReference "InjectionNext" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/johnno1962/InjectionNext";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.1;
+			};
+		};
+		E5CA195A2DCCB2A9006A9850 /* XCRemoteSwiftPackageReference "Inject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E5CA19582DCCB296006A9850 /* InjectionNext */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5CA19572DCCB260006A9850 /* XCRemoteSwiftPackageReference "InjectionNext" */;
+			productName = InjectionNext;
+		};
+		E5CA195B2DCCB2A9006A9850 /* Inject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5CA195A2DCCB2A9006A9850 /* XCRemoteSwiftPackageReference "Inject" */;
+			productName = Inject;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E5691C9C2DCCB0C700AF31EB /* Project object */;
 }
