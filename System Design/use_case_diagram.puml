@@ -1,12 +1,34 @@
 @startuml
+left to right direction
 actor User
+actor "AI NLP API\n(FastAPI)" as AI
 
-User --> (Create Diary Entry)
-(Create Diary Entry) --> (Extract Schedule)
-(Extract Schedule) --> (Link Goal)
-User --> (View Diary)
-User --> (View Schedule)
-User --> (Toggle Schedule Done)
-User --> (View Goal Progress)
+package "AutoTask App" {
+    usecase "Write Diary Entry" as UC1
+    usecase "Send Entry to AI NLP API" as UC2
+    usecase "Receive Extracted Data" as UC3
+    usecase "Create Schedule from Activity + Date" as UC4
+    usecase "Create or Link Goal" as UC5
+    usecase "Save Diary, Schedule, Goal to Database" as UC6
+    usecase "View Diary History" as UC7
+    usecase "View Schedule (Grouped by Date)" as UC8
+    usecase "Toggle Schedule Completion" as UC9
+    usecase "View Goals and Progress" as UC10
+}
+
+User --> UC1 : enters message
+UC1 --> UC2 : sends text
+UC2 --> AI : POST /parse-diary
+AI --> UC3 : returns JSON(activity, goal, date)
+UC3 --> UC4 : generate Schedule
+UC3 --> UC5 : match/create Goal
+UC4 --> UC6
+UC5 --> UC6
+UC1 --> UC6 : save Diary
+
+User --> UC7 : browses diary
+User --> UC8 : browses schedule
+User --> UC9 : checks item done
+User --> UC10 : views progress bar
 
 @enduml
