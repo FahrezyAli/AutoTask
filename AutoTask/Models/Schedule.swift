@@ -10,14 +10,15 @@ import SwiftData
 
 @Model
 class Schedule {
-    var id: UUID
+    var id: UUID = UUID()
     var activity: String
-    var time: Date
-    var message: Diary?
+    var date: Date
+    var isCompleted: Bool = false
+    var goal: String?
 
-    init(activity: String, time: Date) {
-        self.id = UUID()
+    init(activity: String, date: Date, goal: String?) {
         self.activity = activity
-        self.time = time
+        self.date = date
+        self.goal = goal
     }
 }
