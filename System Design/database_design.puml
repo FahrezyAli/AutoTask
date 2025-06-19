@@ -1,0 +1,29 @@
+@startuml
+entity Diary {
+  *id : UUID
+  content : String
+  timestamp : Date
+  --
+  schedule_id : FK
+  goal_id : FK
+}
+
+entity Schedule {
+  *id : UUID
+  activity : String
+  date : Date
+  is_completed : Bool
+  --
+  diary_id : FK
+  goal_id : FK
+}
+
+entity Goal {
+  *id : UUID
+  name : String
+}
+
+Diary ||--o{ Schedule : creates
+Goal ||--o{ Schedule : contains
+Goal ||--o{ Diary : relates_to
+@enduml

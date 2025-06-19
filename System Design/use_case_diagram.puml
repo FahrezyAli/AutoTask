@@ -1,0 +1,12 @@
+@startuml
+actor User
+
+User --> (Create Diary Entry)
+(Create Diary Entry) --> (Extract Schedule)
+(Extract Schedule) --> (Link Goal)
+User --> (View Diary)
+User --> (View Schedule)
+User --> (Toggle Schedule Done)
+User --> (View Goal Progress)
+
+@enduml

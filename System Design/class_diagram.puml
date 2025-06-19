@@ -1,0 +1,33 @@
+@startuml
+
+class Diary {
+  +id : UUID
+  +content : String
+  +timestamp : Date
+  +schedule : Schedule?
+  +goal : Goal?
+}
+
+class Schedule {
+  +id : UUID
+  +activity : String
+  +date : Date
+  +isCompleted : Bool
+  +message : Diary?
+  +goal : Goal?
+}
+
+class Goal {
+  +id : UUID
+  +name : String
+  +messages : [Diary]
+  +scheduleItems : [Schedule]
+}
+
+Diary --> "1" Schedule : creates
+Schedule --> "1" Goal : links
+Diary --> "1" Goal : relates
+Goal --> "*" Schedule
+Goal --> "*" Diary
+
+@enduml
