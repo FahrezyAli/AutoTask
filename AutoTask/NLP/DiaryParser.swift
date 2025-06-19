@@ -65,6 +65,24 @@ struct DiaryParser {
         return Calendar.current.date(from: components)  // Return date with no time if time missing
     }
 
+    static func extractSmartDate(from text: String) -> Date {
+        if let detectedDate = extractDate(from: text) {
+            return detectedDate
+        }
+
+        let lowercased = text.lowercased()
+        let calendar = Calendar.current
+        let now = Date()
+
+        if lowercased.contains("tomorrow") {
+            return calendar.date(byAdding: .day, value: 1, to: now) ?? now
+        } else if lowercased.contains("today") {
+            return now
+        }
+
+        return now
+    }
+
     static func extractNouns(from text: String) -> [String] {
         var results: [String] = []
         let tagger = NLTagger(tagSchemes: [.lexicalClass])
@@ -134,9 +152,9 @@ struct DiaryParser {
     }
 
     static func extractDetails(from text: String) -> (
-        activity: String?, date: Date?, goal: String?
+        activity: String?, date: Date, goal: String?
     ) {
-        let date = extractDate(from: text)
+        let date = extractSmartDate(from: text)
         let (activity, goal) = extractActivityAndGoal(from: text)
         return (activity, date, goal)
     }
