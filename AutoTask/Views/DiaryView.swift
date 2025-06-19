@@ -43,45 +43,48 @@ struct DiaryView: View {
                     TextField("Type a message...", text: $inputText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
 
-                    Button("Send") {
-                        guard
-                            !inputText.trimmingCharacters(in: .whitespaces)
-                                .isEmpty
-                        else { return }
+                    Button(
+                        action: {
+                            guard
+                                !inputText.trimmingCharacters(in: .whitespaces)
+                                    .isEmpty
+                            else { return }
 
-                        let newMessage = Diary(content: inputText)
-                        context.insert(newMessage)
+                            let newMessage = Diary(content: inputText)
+                            context.insert(newMessage)
 
-                        // 🧠 Extract activity, date, and goal
-                        let parsed = DiaryParser.extractDetails(from: inputText)
-
-                        if let activity = parsed.activity,
-                            let time = parsed.date
-                        {
-                            let schedule = Schedule(
-                                activity: activity,
-                                time: time
+                            let parsed = DiaryParser.extractDetails(
+                                from: inputText
                             )
-                            schedule.message = newMessage
-                            newMessage.schedule = schedule
-                            context.insert(schedule)
+
+                            if let activity = parsed.activity {
+                                let schedule = Schedule(
+                                    activity: activity,
+                                    date: parsed.date,
+                                    goal: parsed.goal
+                                )
+                                context.insert(schedule)
+                            }
+
+                            if let goalName = parsed.goal {
+                                let goal = Goal(name: goalName)
+                                goal.messages.append(newMessage)
+                                newMessage.goal = goal
+                                context.insert(goal)
+                            }
+
+                            print("Parsed Date: \(parsed.date.formatted())")
+                            print(
+                                "Parsed Activity: \(parsed.activity ?? "nil")"
+                            )
+                            print("Parsed Goal: \(parsed.goal ?? "nil")")
+
+                            inputText = ""
+                        },
+                        label: {
+                            Text("Send")
                         }
-
-                        if let goalName = parsed.goal {
-                            let goal = Goal(name: goalName)
-                            goal.messages.append(newMessage)
-                            newMessage.goal = goal
-                            context.insert(goal)
-                        }
-
-                        print(
-                            "Parsed Date: \(parsed.date?.formatted() ?? "nil")"
-                        )
-                        print("Parsed Activity: \(parsed.activity ?? "nil")")
-                        print("Parsed Goal: \(parsed.goal ?? "nil")")
-
-                        inputText = ""
-                    }
+                    )
                 }
                 .padding()
             }

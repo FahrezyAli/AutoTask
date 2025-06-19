@@ -13,8 +13,8 @@ struct ContentView: View {
             DiaryView().tabItem {
                 Label("Chat", systemImage: "message")
             }
-            CalenderView().tabItem {
-                Label("Calendar", systemImage: "calendar")
+            ScheduleView().tabItem {
+                Label("Schedule", systemImage: "calendar")
             }
             GoalsView().tabItem {
                 Label("Goals", systemImage: "flag")
